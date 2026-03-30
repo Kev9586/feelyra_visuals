@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { portfolioImages as mockPortfolioImages } from '../mock/photographyData';
 import { useStrapiData } from '../hooks/useStrapiData';
 import { getPortfolioItems } from '../services/strapiService';
 
 const Gallery = () => {
-  const { data: portfolioImages } = useStrapiData(getPortfolioItems, mockPortfolioImages);
+  const { data: portfolioImages } = useStrapiData(getPortfolioItems, []);
   const [activeFilter, setActiveFilter] = useState('all');
   const [hoveredId, setHoveredId] = useState(null);
 

@@ -1,10 +1,14 @@
 import React from 'react';
-import { aboutData } from '../mock/photographyData';
-// About section uses static mock data (not CMS-managed)
+import { useStrapiData } from '../hooks/useStrapiData';
+import { getAbout } from '../services/strapiService';
 import { Camera, Award, MapPin, Calendar } from 'lucide-react';
 
+const iconMap = [Camera, MapPin, Award, Calendar];
+
 const About = () => {
-  const iconMap = { 0: Camera, 1: MapPin, 2: Award, 3: Calendar };
+  const { data: aboutData } = useStrapiData(getAbout, null);
+
+  if (!aboutData) return null;
 
   return (
     <section id="about" data-testid="about-section" className="py-24 md:py-32 bg-neutral-950">
@@ -14,13 +18,12 @@ const About = () => {
           <div className="relative group animate-fade-in">
             <div className="relative overflow-hidden">
               <img
-                src="https://static.prod-images.emergentagent.com/jobs/00252e81-49fc-4819-a1c1-88ff0ad1284e/images/1ca15554e1640971c57ec162139b55be179fa115cf9c32744ce76a0e4b4af887.png"
+                src={aboutData.image || "https://static.prod-images.emergentagent.com/jobs/00252e81-49fc-4819-a1c1-88ff0ad1284e/images/1ca15554e1640971c57ec162139b55be179fa115cf9c32744ce76a0e4b4af887.png"}
                 alt="Photographer"
                 data-testid="about-photographer-img"
                 className="w-full h-[600px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
               />
             </div>
-            {/* Decorative accent */}
             <div className="absolute -bottom-4 -right-4 w-48 h-48 border border-white/10 -z-10" />
             <div className="absolute -top-4 -left-4 w-24 h-24 border border-white/5 -z-10" />
           </div>
@@ -43,7 +46,7 @@ const About = () => {
             {/* Stats */}
             <div className="grid grid-cols-2 gap-6 pt-8 border-t border-white/5">
               {aboutData.stats.map((stat, index) => {
-                const Icon = iconMap[index];
+                const Icon = iconMap[index] || Camera;
                 return (
                   <div key={index} data-testid={`about-stat-${index}`} className="space-y-2">
                     <Icon className="w-5 h-5 text-white/70 mb-2" />

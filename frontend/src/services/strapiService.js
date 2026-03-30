@@ -91,6 +91,33 @@ export const getTestimonials = async () => {
   }));
 };
 
+export const getFaqs = async () => {
+  const data = await fetchFromStrapi('faqs', 'sort=order:asc');
+  if (!data?.data) return null;
+  return data.data.map(item => ({
+    id: item.id,
+    question: item.question,
+    answer: item.answer,
+  }));
+};
+
+export const getAbout = async () => {
+  const data = await fetchFromStrapi('about');
+  if (!data?.data) return null;
+  return {
+    title: data.data.title,
+    description: data.data.description,
+    image: resolveImage(data.data.image),
+    stats: (data.data.stats || []).map(s => ({ value: s.value, label: s.label })),
+  };
+};
+
+export const getHeroImages = async () => {
+  const data = await fetchFromStrapi('portfolio-items', 'sort=order:asc&pagination[limit]=8');
+  if (!data?.data) return null;
+  return data.data.map(item => resolveImage(item.image)).filter(Boolean);
+};
+
 export const submitContactForm = async (formData) => {
   return postToStrapi('contact-submissions', formData);
 };

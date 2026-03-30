@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useStrapiData } from '../hooks/useStrapiData';
+import { getHeroImages } from '../services/strapiService';
 
-const galleryImages = [
-  { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&q=80", span: "row-span-1" },
-  { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80", span: "row-span-1" },
-  { url: "https://images.unsplash.com/photo-1465056836041-7f43ac27dcb5?w=400&q=80", span: "row-span-1" },
-  { url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=80", span: "row-span-2" },
-  { url: "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?w=400&q=80", span: "row-span-1" },
-  { url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400&q=80", span: "row-span-2" },
-  { url: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400&q=80", span: "row-span-1" },
-  { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&q=80", span: "row-span-1" },
-];
+const rowSpans = ['row-span-1', 'row-span-1', 'row-span-1', 'row-span-2', 'row-span-1', 'row-span-2', 'row-span-1', 'row-span-1'];
 
 const Hero = ({ onBookingClick }) => {
   const [loaded, setLoaded] = useState(false);
+  const { data: heroImages } = useStrapiData(getHeroImages, []);
 
   useEffect(() => {
     setLoaded(true);
@@ -58,22 +52,24 @@ const Hero = ({ onBookingClick }) => {
         </div>
 
         {/* Bottom — Floating Gallery Grid */}
-        <div className={`-mt-16 lg:-mt-32 relative z-10 transition-all duration-1000 delay-600 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 auto-rows-[120px] md:auto-rows-[140px]">
-            {galleryImages.map((img, i) => (
-              <div
-                key={i}
-                className={`overflow-hidden group cursor-pointer ${img.span}`}
-              >
-                <img
-                  src={img.url}
-                  alt={`Gallery ${i + 1}`}
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                />
-              </div>
-            ))}
+        {heroImages.length > 0 && (
+          <div className={`-mt-16 lg:-mt-32 relative z-10 transition-all duration-1000 delay-600 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 auto-rows-[120px] md:auto-rows-[140px]">
+              {heroImages.map((url, i) => (
+                <div
+                  key={i}
+                  className={`overflow-hidden group cursor-pointer ${rowSpans[i] || 'row-span-1'}`}
+                >
+                  <img
+                    src={url}
+                    alt={`Gallery ${i + 1}`}
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

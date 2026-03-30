@@ -1,11 +1,10 @@
 import React from 'react';
-import { services as mockServices } from '../mock/photographyData';
 import { useStrapiData } from '../hooks/useStrapiData';
 import { getServices } from '../services/strapiService';
 import { Check, ArrowUpRight } from 'lucide-react';
 
 const Services = () => {
-  const { data: services } = useStrapiData(getServices, mockServices);
+  const { data: services } = useStrapiData(getServices, []);
 
   return (
     <section id="services" data-testid="services-section" className="py-24 md:py-32 bg-neutral-950">

@@ -1,11 +1,10 @@
 import React from 'react';
-import { featuredWork as mockFeaturedWork } from '../mock/photographyData';
 import { useStrapiData } from '../hooks/useStrapiData';
 import { getFeaturedWork } from '../services/strapiService';
 import { ArrowUpRight } from 'lucide-react';
 
 const FeaturedWork = () => {
-  const { data: featuredWork } = useStrapiData(getFeaturedWork, mockFeaturedWork);
+  const { data: featuredWork } = useStrapiData(getFeaturedWork, []);
 
   const gridClasses = [
     'md:col-span-2 md:row-span-2',

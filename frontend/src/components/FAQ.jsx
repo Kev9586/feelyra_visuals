@@ -1,8 +1,11 @@
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
-import { faqData } from '../mock/photographyData';
+import { useStrapiData } from '../hooks/useStrapiData';
+import { getFaqs } from '../services/strapiService';
 
 const FAQ = () => {
+  const { data: faqData } = useStrapiData(getFaqs, []);
+
   return (
     <section id="faq" data-testid="faq-section" className="py-24 md:py-32 bg-neutral-950">
       <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-4xl">
@@ -20,7 +23,6 @@ const FAQ = () => {
               value={`item-${faq.id}`}
               data-testid={`faq-item-${index}`}
               className="glass px-6 hover:border-white/20 transition-all duration-300"
-              
             >
               <AccordionTrigger className="text-white hover:text-white/60 text-left py-5">
                 <span className="font-semibold text-base">{faq.question}</span>
