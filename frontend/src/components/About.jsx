@@ -4,56 +4,53 @@ import { aboutData } from '../mock/photographyData';
 import { Camera, Award, MapPin, Calendar } from 'lucide-react';
 
 const About = () => {
-  const iconMap = {
-    0: Camera,
-    1: MapPin,
-    2: Award,
-    3: Calendar
-  };
+  const iconMap = { 0: Camera, 1: MapPin, 2: Award, 3: Calendar };
 
   return (
-    <section id="about" className="py-24 bg-black">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section id="about" data-testid="about-section" className="py-24 md:py-32 bg-neutral-950">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left - Image */}
-          <div className="relative group">
-            <div className="relative overflow-hidden rounded-lg">
+          {/* Left — Image */}
+          <div className="relative group animate-fade-in">
+            <div className="relative overflow-hidden">
               <img
-                src={aboutData.image}
+                src="https://static.prod-images.emergentagent.com/jobs/00252e81-49fc-4819-a1c1-88ff0ad1284e/images/1ca15554e1640971c57ec162139b55be179fa115cf9c32744ce76a0e4b4af887.png"
                 alt="Photographer"
+                data-testid="about-photographer-img"
                 className="w-full h-[600px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
             </div>
-            {/* Decorative element */}
-            <div className="absolute -bottom-6 -right-6 w-48 h-48 border-2 border-amber-500/30 rounded-lg -z-10" />
+            {/* Decorative accent */}
+            <div className="absolute -bottom-4 -right-4 w-48 h-48 border border-amber-500/20 -z-10" />
+            <div className="absolute -top-4 -left-4 w-24 h-24 border border-white/5 -z-10" />
           </div>
 
-          {/* Right - Content */}
+          {/* Right — Content */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+              <span className="label-accent block mb-4">Who We Are</span>
+              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
                 ABOUT
               </h2>
-              <h3 className="text-2xl text-amber-500 font-semibold mb-4">
+              <h3 className="text-xl text-amber-500 font-semibold mb-4">
                 {aboutData.title}
               </h3>
-              <p className="text-neutral-300 text-lg leading-relaxed">
+              <p className="text-neutral-400 text-base leading-relaxed font-light">
                 {aboutData.description}
               </p>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-6 pt-8 border-t border-neutral-800">
+            {/* Stats */}
+            <div className="grid grid-cols-2 gap-6 pt-8 border-t border-white/5">
               {aboutData.stats.map((stat, index) => {
                 const Icon = iconMap[index];
                 return (
-                  <div key={index} className="space-y-2">
-                    <Icon className="w-6 h-6 text-amber-500 mb-2" />
+                  <div key={index} data-testid={`about-stat-${index}`} className="space-y-2">
+                    <Icon className="w-5 h-5 text-amber-500 mb-2" />
                     <div className="text-4xl font-bold text-white" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
                       {stat.value}
                     </div>
-                    <div className="text-neutral-400 text-sm">
+                    <div className="text-neutral-500 text-xs uppercase tracking-wider">
                       {stat.label}
                     </div>
                   </div>

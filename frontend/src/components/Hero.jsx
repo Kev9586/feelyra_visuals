@@ -1,113 +1,134 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from './ui/button';
 import { ArrowRight } from 'lucide-react';
 
 const Hero = ({ onBookingClick }) => {
   const [scrollY, setScrollY] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    setLoaded(true);
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const floatingImages = [
-    { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4", delay: 0 },
-    { url: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29", delay: 0.2 },
-    { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e", delay: 0.4 },
-    { url: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d", delay: 0.6 },
-    { url: "https://images.unsplash.com/photo-1519681393784-d120267933ba", delay: 0.8 }
+  const gallerySnippets = [
+    { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400", delay: 0.3 },
+    { url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400", delay: 0.6 },
+    { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400", delay: 0.9 },
   ];
 
   return (
-    <section className="relative min-h-screen bg-black overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-neutral-900 to-black opacity-90" />
+    <section data-testid="hero-section" className="relative min-h-screen bg-neutral-950 overflow-hidden">
+      {/* Ambient gradient */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-amber-500/3 rounded-full blur-[120px]" />
+      </div>
 
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 min-h-screen flex items-center pt-20">
-        <div className="grid lg:grid-cols-2 gap-16 items-center w-full">
-          {/* Left Content */}
-          <div className="space-y-8 animate-fade-in">
+      <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-24 min-h-screen flex items-center pt-24">
+        <div className="grid lg:grid-cols-12 gap-8 items-center w-full">
+          {/* Left — Typography & CTA (5 cols) */}
+          <div className={`lg:col-span-5 space-y-8 transition-all duration-1000 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'}`}>
             <div className="space-y-6">
-              <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight leading-none" style={{ fontFamily: 'Bebas Neue, sans-serif', letterSpacing: '0.02em' }}>
+              <span className="label-accent block">Photography & Creative Agency</span>
+              <h1
+                data-testid="hero-heading"
+                className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-white tracking-tight leading-[0.9]"
+                style={{ fontFamily: 'Bebas Neue, sans-serif' }}
+              >
                 HORIZON
               </h1>
-              <div className="max-w-lg">
-                <p className="text-lg md:text-xl text-neutral-300 leading-relaxed">
-                  Welcome to <span className="text-white font-semibold">HORIZON</span> where nature meets art. Our passion for the outdoors and capturing its beauty has led us on countless adventures and allowed us to develop a unique style of photography that showcases the natural world in all its splendor.
-                </p>
-              </div>
+              <div className="w-16 h-[2px] bg-amber-500" />
+              <p className="text-lg text-neutral-400 leading-relaxed max-w-md font-light">
+                Where nature meets art. We capture the raw beauty of the world through a lens of adventure, turning fleeting moments into timeless visual stories.
+              </p>
             </div>
 
-            <div>
-              <Button 
+            <div className="flex items-center gap-6">
+              <button
+                data-testid="hero-book-btn"
                 onClick={onBookingClick}
-                size="lg"
-                className="group bg-white text-black hover:bg-neutral-200 text-base px-8 py-6 rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                className="bg-amber-500 text-black font-bold uppercase tracking-wider px-8 py-4 text-sm hover:bg-amber-400 transition-colors"
               >
-                Book your adventure today
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+                Book a Shoot
+                <ArrowRight className="inline-block ml-2 w-4 h-4" />
+              </button>
+              <button
+                data-testid="hero-work-btn"
+                onClick={() => document.querySelector('#works')?.scrollIntoView({ behavior: 'smooth' })}
+                className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 text-sm hover:bg-white/5 transition-colors"
+              >
+                View Work
+              </button>
+            </div>
+
+            {/* Stats row */}
+            <div className="flex gap-10 pt-4">
+              {[
+                { val: '500+', label: 'Projects' },
+                { val: '50+', label: 'Countries' },
+                { val: '15+', label: 'Awards' },
+              ].map((s, i) => (
+                <div key={i} className="text-center">
+                  <div className="text-3xl font-bold text-white" style={{ fontFamily: 'Bebas Neue' }}>{s.val}</div>
+                  <div className="text-xs text-neutral-500 uppercase tracking-wider">{s.label}</div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right Content - Photographer with Floating Images */}
-          <div className="relative h-[500px] lg:h-[600px] hidden lg:block">
+          {/* Right — Photographer + Floating Gallery (7 cols) */}
+          <div className={`lg:col-span-7 relative h-[550px] lg:h-[650px] hidden lg:block transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16'}`}>
             {/* Main photographer image */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-              <div 
-                className="relative w-80 h-[500px]"
-                style={{ transform: `translateY(${scrollY * 0.08}px)` }}
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1609748629050-129797b86431"
-                  alt="Photographer"
-                  className="w-full h-full object-cover rounded-lg shadow-2xl"
-                />
-              </div>
+            <div
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-[420px] h-[560px] z-10"
+              style={{ transform: `translateY(calc(-50% + ${scrollY * 0.04}px))` }}
+            >
+              <img
+                src="https://static.prod-images.emergentagent.com/jobs/00252e81-49fc-4819-a1c1-88ff0ad1284e/images/ba24d44ec14aeb4783b6bd294d135b081dd81a1ff5f5ccdbe8676beda4d6fb71.png"
+                alt="Photographer"
+                data-testid="hero-photographer-img"
+                className="w-full h-full object-cover"
+              />
+              {/* Accent border */}
+              <div className="absolute -bottom-3 -right-3 w-full h-full border border-amber-500/20 -z-10" />
             </div>
 
-            {/* Floating gallery images */}
-            <div className="absolute inset-0 z-0">
-              {floatingImages.map((img, index) => {
-                const positions = [
-                  { top: '5%', left: '0%', size: 'w-28 h-28' },
-                  { top: '45%', left: '-5%', size: 'w-36 h-36' },
-                  { bottom: '10%', left: '10%', size: 'w-32 h-32' },
-                  { top: '10%', right: '5%', size: 'w-40 h-40' },
-                  { bottom: '5%', right: '0%', size: 'w-44 h-44' }
-                ];
-                const pos = positions[index];
-                
-                return (
-                  <div
-                    key={index}
-                    className={`absolute ${pos.size} rounded-lg overflow-hidden shadow-2xl opacity-0 animate-float-in border-2 border-white/20`}
-                    style={{
-                      ...pos,
-                      animationDelay: `${img.delay}s`,
-                      transform: `translateY(${scrollY * (0.04 * (index + 1))}px)`
-                    }}
-                  >
-                    <img
-                      src={img.url}
-                      alt={`Gallery ${index + 1}`}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                );
-              })}
-            </div>
+            {/* Floating gallery snippets */}
+            {gallerySnippets.map((img, i) => {
+              const positions = [
+                { top: '5%', left: '0%', w: 'w-44', h: 'h-32' },
+                { top: '40%', left: '-5%', w: 'w-40', h: 'h-52' },
+                { bottom: '5%', left: '15%', w: 'w-48', h: 'h-36' },
+              ];
+              const pos = positions[i];
+              return (
+                <div
+                  key={i}
+                  className={`absolute ${pos.w} ${pos.h} overflow-hidden opacity-0 animate-float-in animate-gentle-float`}
+                  style={{
+                    ...pos,
+                    animationDelay: `${img.delay}s`,
+                    transform: `translateY(${scrollY * (0.02 * (i + 1))}px)`,
+                  }}
+                >
+                  <img src={img.url} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+                  <div className="absolute inset-0 border border-white/10" />
+                </div>
+              );
+            })}
+
+            {/* Decorative circle */}
+            <div className="absolute top-10 right-[450px] w-20 h-20 border border-amber-500/10 rounded-full" />
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-neutral-400 text-sm tracking-widest">SCROLL</span>
-          <div className="w-px h-12 bg-gradient-to-b from-neutral-400 to-transparent" />
-        </div>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3">
+        <span className="text-neutral-500 text-[10px] tracking-[0.3em] uppercase">Scroll</span>
+        <div className="w-px h-10 bg-gradient-to-b from-neutral-500 to-transparent" />
       </div>
     </section>
   );

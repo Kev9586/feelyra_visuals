@@ -1,37 +1,31 @@
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
 import { faqData } from '../mock/photographyData';
-// FAQ section uses static mock data (not CMS-managed)
 
 const FAQ = () => {
   return (
-    <section id="faq" className="py-24 bg-black">
-      <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
-        {/* Section Header */}
+    <section id="faq" data-testid="faq-section" className="py-24 md:py-32 bg-neutral-950">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-4xl">
         <div className="mb-16 text-center">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
-            FREQUENTLY ASKED QUESTIONS
+          <span className="label-accent block mb-4">Common Questions</span>
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+            FAQ
           </h2>
-          <p className="text-neutral-400 text-lg">
-            Everything you need to know about working with Horizon Photography.
-          </p>
         </div>
 
-        {/* FAQ Accordion */}
-        <Accordion type="single" collapsible className="space-y-4">
+        <Accordion type="single" collapsible className="space-y-3">
           {faqData.map((faq, index) => (
             <AccordionItem
               key={faq.id}
               value={`item-${faq.id}`}
-              className="bg-neutral-900 border-neutral-800 rounded-lg px-6 hover:border-amber-500/50 transition-all duration-300"
-              style={{
-                animation: `fade-in-up 0.6s ease-out ${index * 0.1}s both`
-              }}
+              data-testid={`faq-item-${index}`}
+              className="glass px-6 hover:border-amber-500/20 transition-all duration-300"
+              
             >
-              <AccordionTrigger className="text-white hover:text-amber-500 text-left py-6">
-                <span className="font-semibold text-lg">{faq.question}</span>
+              <AccordionTrigger className="text-white hover:text-amber-500 text-left py-5">
+                <span className="font-semibold text-base">{faq.question}</span>
               </AccordionTrigger>
-              <AccordionContent className="text-neutral-400 pb-6 leading-relaxed">
+              <AccordionContent className="text-neutral-400 pb-5 leading-relaxed font-light text-sm">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

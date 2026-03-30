@@ -2,63 +2,67 @@ import React from 'react';
 import { services as mockServices } from '../mock/photographyData';
 import { useStrapiData } from '../hooks/useStrapiData';
 import { getServices } from '../services/strapiService';
-import { Card, CardContent } from './ui/card';
-import { Check } from 'lucide-react';
+import { Check, ArrowUpRight } from 'lucide-react';
 
 const Services = () => {
   const { data: services } = useStrapiData(getServices, mockServices);
+
   return (
-    <section id="services" className="py-24 bg-black">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section id="services" data-testid="services-section" className="py-24 md:py-32 bg-neutral-950">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
         {/* Section Header */}
-        <div className="mb-16 text-center">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
-            SERVICES
-          </h2>
-          <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
+        <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <span className="label-accent block mb-4">What We Offer</span>
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+              SERVICES
+            </h2>
+          </div>
+          <p className="text-neutral-400 text-base font-light max-w-md leading-relaxed">
             Professional photography services tailored to capture your unique vision and story.
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {services.map((service, index) => (
-            <Card
+            <div
               key={service.id}
-              className="group bg-neutral-900 border-neutral-800 hover:border-amber-500/50 transition-all duration-500 overflow-hidden cursor-pointer"
-              style={{
-                animation: `fade-in-up 0.8s ease-out ${index * 0.1}s both`
-              }}
+              data-testid={`service-card-${index}`}
+              className="group bg-neutral-900/50 border border-white/5 hover:border-amber-500/30 transition-all duration-500 overflow-hidden cursor-pointer"
+              
             >
-              {/* Service Image */}
-              <div className="relative h-64 overflow-hidden">
+              {/* Image */}
+              <div className="relative h-56 overflow-hidden">
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
+                <div className="absolute top-4 right-4 w-8 h-8 border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <ArrowUpRight className="w-4 h-4 text-white" />
+                </div>
               </div>
 
-              <CardContent className="p-6 space-y-4">
+              {/* Content */}
+              <div className="p-6 space-y-4">
                 <h3 className="text-2xl font-bold text-white group-hover:text-amber-500 transition-colors duration-300" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
                   {service.title}
                 </h3>
-                <p className="text-neutral-400 text-sm leading-relaxed">
+                <p className="text-neutral-400 text-sm leading-relaxed font-light">
                   {service.description}
                 </p>
-                
-                {/* Features */}
-                <ul className="space-y-2 pt-4 border-t border-neutral-800">
+                <ul className="space-y-2 pt-4 border-t border-white/5">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-neutral-300 text-sm">
-                      <Check className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                    <li key={idx} className="flex items-center gap-2 text-neutral-300 text-sm font-light">
+                      <Check className="w-3 h-3 text-amber-500 flex-shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

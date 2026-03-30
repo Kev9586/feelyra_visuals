@@ -2,61 +2,47 @@ import React from 'react';
 import { testimonials as mockTestimonials } from '../mock/photographyData';
 import { useStrapiData } from '../hooks/useStrapiData';
 import { getTestimonials } from '../services/strapiService';
-import { Card, CardContent } from './ui/card';
 import { Quote } from 'lucide-react';
 
 const Testimonials = () => {
   const { data: testimonials } = useStrapiData(getTestimonials, mockTestimonials);
+
   return (
-    <section className="py-24 bg-neutral-950">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section data-testid="testimonials-section" className="py-24 md:py-32 bg-neutral-950">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
         {/* Section Header */}
         <div className="mb-16 text-center">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+          <span className="label-accent block mb-4">Client Stories</span>
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
             TESTIMONIALS
           </h2>
-          <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
-            What clients say about working with Horizon Photography.
-          </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Card
-              key={testimonial.id}
-              className="bg-neutral-900 border-neutral-800 hover:border-amber-500/50 transition-all duration-500"
-              style={{
-                animation: `fade-in-up 0.8s ease-out ${index * 0.15}s both`
-              }}
+        {/* Glass Cards */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((t, index) => (
+            <div
+              key={t.id}
+              data-testid={`testimonial-card-${index}`}
+              className="glass p-8 space-y-6 hover:border-amber-500/20 transition-all duration-500"
+              
             >
-              <CardContent className="p-8 space-y-6">
-                {/* Quote Icon */}
-                <Quote className="w-10 h-10 text-amber-500" />
-
-                {/* Quote */}
-                <p className="text-neutral-300 leading-relaxed italic">
-                  "{testimonial.quote}"
-                </p>
-
-                {/* Client Info */}
-                <div className="flex items-center gap-4 pt-4 border-t border-neutral-800">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-14 h-14 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                  />
-                  <div>
-                    <h4 className="text-white font-semibold">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-neutral-400 text-sm">
-                      {testimonial.role}
-                    </p>
-                  </div>
+              <Quote className="w-8 h-8 text-amber-500/60" />
+              <p className="text-neutral-300 leading-relaxed font-light italic">
+                "{t.quote}"
+              </p>
+              <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+                <img
+                  src={t.image}
+                  alt={t.name}
+                  className="w-12 h-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                />
+                <div>
+                  <h4 className="text-white font-semibold text-sm">{t.name}</h4>
+                  <p className="text-neutral-500 text-xs">{t.role}</p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>
