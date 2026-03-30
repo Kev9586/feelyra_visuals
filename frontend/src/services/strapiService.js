@@ -1,10 +1,15 @@
 const STRAPI_URL = process.env.REACT_APP_STRAPI_URL;
+const STRAPI_TOKEN = process.env.REACT_APP_STRAPI_TOKEN;
+
+const headers = STRAPI_TOKEN
+  ? { 'Authorization': `Bearer ${STRAPI_TOKEN}` }
+  : {};
 
 const fetchFromStrapi = async (endpoint, params = '') => {
   if (!STRAPI_URL) return null;
   try {
     const url = `${STRAPI_URL}/api/${endpoint}?populate=*${params ? '&' + params : ''}`;
-    const res = await fetch(url);
+    const res = await fetch(url, { headers });
     if (!res.ok) throw new Error(`${res.status}`);
     return await res.json();
   } catch (err) {
@@ -18,7 +23,7 @@ const postToStrapi = async (endpoint, payload) => {
   try {
     const res = await fetch(`${STRAPI_URL}/api/${endpoint}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...headers },
       body: JSON.stringify({ data: payload }),
     });
     if (!res.ok) throw new Error(`${res.status}`);
@@ -29,12 +34,20 @@ const postToStrapi = async (endpoint, payload) => {
   }
 };
 
+const resolveImage = (imageField) => {
+  if (!imageField) return null;
+  if (imageField.url) {
+    return imageField.url.startsWith('http') ? imageField.url : `${STRAPI_URL}${imageField.url}`;
+  }
+  return imageField;
+};
+
 export const getPortfolioItems = async () => {
   const data = await fetchFromStrapi('portfolio-items', 'sort=order:asc');
   if (!data?.data) return null;
   return data.data.map(item => ({
     id: item.id,
-    url: item.image?.url ? `${STRAPI_URL}${item.image.url}` : item.image,
+    url: resolveImage(item.image),
     category: item.category,
     title: item.title,
     description: item.description,
@@ -47,7 +60,7 @@ export const getFeaturedWork = async () => {
   if (!data?.data) return null;
   return data.data.map(item => ({
     id: item.id,
-    image: item.image?.url ? `${STRAPI_URL}${item.image.url}` : item.image,
+    image: resolveImage(item.image),
     title: item.title,
     category: item.category,
     description: item.description,
@@ -61,7 +74,7 @@ export const getServices = async () => {
     id: item.id,
     title: item.title,
     description: item.description,
-    image: item.image?.url ? `${STRAPI_URL}${item.image.url}` : item.image,
+    image: resolveImage(item.image),
     features: item.features?.map(f => f.text) || [],
   }));
 };
@@ -73,7 +86,7 @@ export const getTestimonials = async () => {
     id: item.id,
     name: item.name,
     role: item.role,
-    image: item.image?.url ? `${STRAPI_URL}${item.image.url}` : item.image,
+    image: resolveImage(item.image),
     quote: item.quote,
   }));
 };
