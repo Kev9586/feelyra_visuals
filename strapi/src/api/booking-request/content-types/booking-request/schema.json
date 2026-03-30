@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "booking_requests",
+  "info": {
+    "singularName": "booking-request",
+    "pluralName": "booking-requests",
+    "displayName": "Booking Request",
+    "description": "Photography booking requests"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "service": {
+      "type": "enumeration",
+      "enum": ["travel", "nature", "commercial", "event"]
+    },
+    "preferredDate": {
+      "type": "date",
+      "required": true
+    },
+    "preferredTime": {
+      "type": "string"
+    },
+    "details": {
+      "type": "text",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "confirmed", "cancelled"],
+      "default": "pending"
+    }
+  }
+}

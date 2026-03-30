@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_service_feature_items",
+  "info": {
+    "displayName": "Feature Item",
+    "description": "Individual feature for a service"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
