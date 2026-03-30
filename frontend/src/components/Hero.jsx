@@ -1,134 +1,119 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowDown } from 'lucide-react';
+
+const heroImages = [
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80",
+  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920&q=80",
+  "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=80",
+];
 
 const Hero = ({ onBookingClick }) => {
-  const [scrollY, setScrollY] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
     setLoaded(true);
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const interval = setInterval(() => {
+      setCurrentImage(prev => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
-  const gallerySnippets = [
-    { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400", delay: 0.3 },
-    { url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400", delay: 0.6 },
-    { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400", delay: 0.9 },
-  ];
-
   return (
-    <section data-testid="hero-section" className="relative min-h-screen bg-neutral-950 overflow-hidden">
-      {/* Ambient gradient */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-amber-500/3 rounded-full blur-[120px]" />
-      </div>
+    <section data-testid="hero-section" className="relative h-screen overflow-hidden">
+      {/* Background slideshow */}
+      {heroImages.map((img, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out"
+          style={{ opacity: currentImage === i ? 1 : 0 }}
+        >
+          <img
+            src={img}
+            alt={`Landscape ${i + 1}`}
+            className="w-full h-full object-cover scale-105"
+          />
+        </div>
+      ))}
 
-      <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-24 min-h-screen flex items-center pt-24">
-        <div className="grid lg:grid-cols-12 gap-8 items-center w-full">
-          {/* Left — Typography & CTA (5 cols) */}
-          <div className={`lg:col-span-5 space-y-8 transition-all duration-1000 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'}`}>
-            <div className="space-y-6">
-              <span className="label-accent block">Photography & Creative Agency</span>
-              <h1
-                data-testid="hero-heading"
-                className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-white tracking-tight leading-[0.9]"
-                style={{ fontFamily: 'Bebas Neue, sans-serif' }}
-              >
-                HORIZON
-              </h1>
-              <div className="w-16 h-[2px] bg-amber-500" />
-              <p className="text-lg text-neutral-400 leading-relaxed max-w-md font-light">
-                Where nature meets art. We capture the raw beauty of the world through a lens of adventure, turning fleeting moments into timeless visual stories.
-              </p>
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-black/30" />
+
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col justify-end pb-24 lg:pb-32">
+        <div className="container mx-auto px-6 md:px-12 lg:px-24">
+          <div className="max-w-3xl space-y-6">
+            {/* Tagline */}
+            <div className={`transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+              <span className="inline-block border border-white/20 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/80">
+                Photography & Creative Agency
+              </span>
             </div>
 
-            <div className="flex items-center gap-6">
+            {/* Main heading */}
+            <h1
+              data-testid="hero-heading"
+              className={`text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.95] tracking-tight transition-all duration-1000 delay-500 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ fontFamily: 'Bebas Neue, sans-serif' }}
+            >
+              Capturing the<br />
+              <span className="text-amber-500">World's Beauty</span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className={`text-neutral-300 text-base lg:text-lg font-light leading-relaxed max-w-lg transition-all duration-1000 delay-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+              We turn fleeting moments into timeless visual stories. From mountain peaks to hidden trails — every frame tells a story.
+            </p>
+
+            {/* CTAs */}
+            <div className={`flex items-center gap-4 pt-2 transition-all duration-1000 delay-900 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
               <button
                 data-testid="hero-book-btn"
                 onClick={onBookingClick}
-                className="bg-amber-500 text-black font-bold uppercase tracking-wider px-8 py-4 text-sm hover:bg-amber-400 transition-colors"
+                className="bg-amber-500 text-black font-bold uppercase tracking-wider px-8 py-4 text-xs hover:bg-amber-400 transition-colors inline-flex items-center gap-2"
               >
-                Book a Shoot
-                <ArrowRight className="inline-block ml-2 w-4 h-4" />
+                Book a Shoot <ArrowRight className="w-4 h-4" />
               </button>
               <button
                 data-testid="hero-work-btn"
                 onClick={() => document.querySelector('#works')?.scrollIntoView({ behavior: 'smooth' })}
-                className="border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 text-sm hover:bg-white/5 transition-colors"
+                className="text-white/70 hover:text-white text-xs font-semibold uppercase tracking-wider transition-colors inline-flex items-center gap-2"
               >
-                View Work
+                View Portfolio <ArrowDown className="w-4 h-4" />
               </button>
             </div>
-
-            {/* Stats row */}
-            <div className="flex gap-10 pt-4">
-              {[
-                { val: '500+', label: 'Projects' },
-                { val: '50+', label: 'Countries' },
-                { val: '15+', label: 'Awards' },
-              ].map((s, i) => (
-                <div key={i} className="text-center">
-                  <div className="text-3xl font-bold text-white" style={{ fontFamily: 'Bebas Neue' }}>{s.val}</div>
-                  <div className="text-xs text-neutral-500 uppercase tracking-wider">{s.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
+        </div>
 
-          {/* Right — Photographer + Floating Gallery (7 cols) */}
-          <div className={`lg:col-span-7 relative h-[550px] lg:h-[650px] hidden lg:block transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16'}`}>
-            {/* Main photographer image */}
-            <div
-              className="absolute right-0 top-1/2 -translate-y-1/2 w-[420px] h-[560px] z-10"
-              style={{ transform: `translateY(calc(-50% + ${scrollY * 0.04}px))` }}
-            >
-              <img
-                src="https://static.prod-images.emergentagent.com/jobs/00252e81-49fc-4819-a1c1-88ff0ad1284e/images/ba24d44ec14aeb4783b6bd294d135b081dd81a1ff5f5ccdbe8676beda4d6fb71.png"
-                alt="Photographer"
-                data-testid="hero-photographer-img"
-                className="w-full h-full object-cover"
-              />
-              {/* Accent border */}
-              <div className="absolute -bottom-3 -right-3 w-full h-full border border-amber-500/20 -z-10" />
-            </div>
-
-            {/* Floating gallery snippets */}
-            {gallerySnippets.map((img, i) => {
-              const positions = [
-                { top: '5%', left: '0%', w: 'w-44', h: 'h-32' },
-                { top: '40%', left: '-5%', w: 'w-40', h: 'h-52' },
-                { bottom: '5%', left: '15%', w: 'w-48', h: 'h-36' },
-              ];
-              const pos = positions[i];
-              return (
-                <div
-                  key={i}
-                  className={`absolute ${pos.w} ${pos.h} overflow-hidden opacity-0 animate-float-in animate-gentle-float`}
-                  style={{
-                    ...pos,
-                    animationDelay: `${img.delay}s`,
-                    transform: `translateY(${scrollY * (0.02 * (i + 1))}px)`,
-                  }}
-                >
-                  <img src={img.url} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
-                  <div className="absolute inset-0 border border-white/10" />
-                </div>
-              );
-            })}
-
-            {/* Decorative circle */}
-            <div className="absolute top-10 right-[450px] w-20 h-20 border border-amber-500/10 rounded-full" />
+        {/* Stats bar at bottom */}
+        <div className="container mx-auto px-6 md:px-12 lg:px-24 mt-12">
+          <div className={`flex gap-12 border-t border-white/10 pt-6 transition-all duration-1000 delay-[1100ms] ${loaded ? 'opacity-100' : 'opacity-0'}`}>
+            {[
+              { val: '500+', label: 'Projects' },
+              { val: '50+', label: 'Countries' },
+              { val: '15+', label: 'Awards' },
+              { val: '10+', label: 'Years' },
+            ].map((s, i) => (
+              <div key={i} className="text-center">
+                <div className="text-2xl font-bold text-white" style={{ fontFamily: 'Bebas Neue' }}>{s.val}</div>
+                <div className="text-[10px] text-neutral-500 uppercase tracking-[0.2em]">{s.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3">
-        <span className="text-neutral-500 text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-neutral-500 to-transparent" />
+      {/* Slide indicators */}
+      <div className="absolute right-6 md:right-12 lg:right-24 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3">
+        {heroImages.map((_, i) => (
+          <button
+            key={i}
+            data-testid={`hero-slide-${i}`}
+            onClick={() => setCurrentImage(i)}
+            className={`w-1.5 transition-all duration-500 ${currentImage === i ? 'h-8 bg-amber-500' : 'h-3 bg-white/30 hover:bg-white/50'}`}
+          />
+        ))}
       </div>
     </section>
   );
