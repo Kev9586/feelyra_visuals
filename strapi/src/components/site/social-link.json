@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_site_social_links",
+  "info": {
+    "displayName": "Social Link",
+    "description": "A social media link"
+  },
+  "options": {},
+  "attributes": {
+    "platform": {
+      "type": "enumeration",
+      "enum": ["instagram", "facebook", "twitter", "linkedin", "youtube"],
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useStrapiData } from '../hooks/useStrapiData';
-import { getHeroImages } from '../services/strapiService';
+import { getHeroImages, getSiteSettings } from '../services/strapiService';
 
 const rowSpans = ['row-span-1', 'row-span-1', 'row-span-1', 'row-span-2', 'row-span-1', 'row-span-2', 'row-span-1', 'row-span-1'];
+
+const FALLBACK_PHOTOGRAPHER = "https://static.prod-images.emergentagent.com/jobs/00252e81-49fc-4819-a1c1-88ff0ad1284e/images/1371892223201b21fa8133730577b4422f9197862abb44c2645f705352e4cba4.png";
 
 const Hero = ({ onBookingClick }) => {
   const [loaded, setLoaded] = useState(false);
   const { data: heroImages } = useStrapiData(getHeroImages, []);
+  const { data: settings } = useStrapiData(getSiteSettings, null);
 
   useEffect(() => {
     setLoaded(true);
   }, []);
+
+  const brandName = settings?.brandName || 'HORIZON';
+  const tagline = settings?.heroTagline || "Welcome to HORIZON where nature meets art. Our passion for the outdoors and capturing its beauty has led us on countless adventures and allowed us to develop a unique style of photography that showcases the natural world in all its splendor.";
+  const ctaText = settings?.heroCtaText || 'Book your adventure today';
+  const photographerImage = settings?.heroImage || FALLBACK_PHOTOGRAPHER;
 
   return (
     <section data-testid="hero-section" className="relative min-h-screen bg-[#0a0a0a] overflow-hidden">
@@ -24,11 +32,11 @@ const Hero = ({ onBookingClick }) => {
               className="text-6xl sm:text-7xl lg:text-8xl text-white leading-[0.95]"
               style={{ fontFamily: 'Playfair Display, serif', fontWeight: 400 }}
             >
-              <span className="italic">H</span>ORIZON
+              <span className="italic">{brandName[0]}</span>{brandName.slice(1)}
             </h1>
 
             <p className="text-white/50 text-sm leading-relaxed max-w-sm font-light">
-              Welcome to <strong className="text-white font-medium">HORIZON</strong> where nature meets art. Our passion for the outdoors and capturing its beauty has led us on countless adventures and allowed us to develop a unique style of photography that showcases the natural world in all its splendor.
+              {tagline}
             </p>
 
             <button
@@ -36,14 +44,14 @@ const Hero = ({ onBookingClick }) => {
               onClick={onBookingClick}
               className="border border-white/30 text-white text-sm px-6 py-2.5 rounded-full hover:bg-white/10 transition-all mt-2"
             >
-              Book your adventure today
+              {ctaText}
             </button>
           </div>
 
           {/* Right — Photographer */}
           <div className={`relative transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <img
-              src="https://static.prod-images.emergentagent.com/jobs/00252e81-49fc-4819-a1c1-88ff0ad1284e/images/1371892223201b21fa8133730577b4422f9197862abb44c2645f705352e4cba4.png"
+              src={photographerImage}
               alt="Photographer with camera"
               data-testid="hero-photographer-img"
               className="w-full h-[500px] lg:h-[600px] object-cover object-top"

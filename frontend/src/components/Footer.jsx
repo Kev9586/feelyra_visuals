@@ -1,8 +1,19 @@
 import React from 'react';
-import { Instagram, Facebook, Twitter, Linkedin, Mail, Phone } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Linkedin, Youtube, Mail, Phone } from 'lucide-react';
+import { useStrapiData } from '../hooks/useStrapiData';
+import { getSiteSettings } from '../services/strapiService';
+
+const socialIcons = { instagram: Instagram, facebook: Facebook, twitter: Twitter, linkedin: Linkedin, youtube: Youtube };
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const { data: settings } = useStrapiData(getSiteSettings, null);
+
+  const brandName = settings?.brandName || 'HORIZON';
+  const footerDesc = settings?.footerDescription || "Capturing the natural world's beauty through the lens of adventure and artistry.";
+  const email = settings?.email || 'hello@horizonphoto.com';
+  const phone = settings?.phone || '+1 (555) 123-4567';
+  const socials = settings?.socialLinks || [];
 
   const links = {
     explore: [
@@ -19,13 +30,6 @@ const Footer = () => {
     ],
   };
 
-  const socials = [
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  ];
-
   const scrollTo = (href) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -38,22 +42,26 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="text-4xl font-bold text-white tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
-              HORIZON
+              {brandName}
             </h3>
             <p className="text-neutral-500 text-sm leading-relaxed font-light">
-              Capturing the natural world's beauty through the lens of adventure and artistry.
+              {footerDesc}
             </p>
-            <div className="flex gap-2 pt-4">
-              {socials.map((s) => {
-                const Icon = s.icon;
-                return (
-                  <a key={s.label} href={s.href} aria-label={s.label} data-testid={`social-${s.label.toLowerCase()}`}
-                    className="w-9 h-9 border border-white/10 flex items-center justify-center text-neutral-500 hover:bg-white hover:text-black hover:border-white transition-all duration-300">
-                    <Icon className="w-4 h-4" />
-                  </a>
-                );
-              })}
-            </div>
+            {socials.length > 0 && (
+              <div className="flex gap-2 pt-4">
+                {socials.map((s) => {
+                  const Icon = socialIcons[s.platform];
+                  if (!Icon) return null;
+                  return (
+                    <a key={s.platform} href={s.url} aria-label={s.platform} target="_blank" rel="noopener noreferrer"
+                      data-testid={`social-${s.platform}`}
+                      className="w-9 h-9 border border-white/10 flex items-center justify-center text-neutral-500 hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Explore */}
@@ -90,11 +98,11 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-neutral-500 text-sm">
                 <Mail className="w-3 h-3 text-white/50" />
-                <span className="font-light">hello@horizonphoto.com</span>
+                <span className="font-light">{email}</span>
               </li>
               <li className="flex items-center gap-3 text-neutral-500 text-sm">
                 <Phone className="w-3 h-3 text-white/50" />
-                <span className="font-light">+1 (555) 123-4567</span>
+                <span className="font-light">{phone}</span>
               </li>
             </ul>
           </div>
@@ -103,7 +111,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-neutral-600 text-xs">
-            &copy; {year} Horizon Photography. All rights reserved.
+            &copy; {year} {brandName} Photography. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs">
             <button className="text-neutral-600 hover:text-white transition-colors">Privacy Policy</button>

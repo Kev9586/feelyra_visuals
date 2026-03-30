@@ -118,6 +118,22 @@ export const getHeroImages = async () => {
   return data.data.map(item => resolveImage(item.image)).filter(Boolean);
 };
 
+export const getSiteSettings = async () => {
+  const data = await fetchFromStrapi('site-setting');
+  if (!data?.data) return null;
+  return {
+    brandName: data.data.brandName,
+    heroTagline: data.data.heroTagline,
+    heroCtaText: data.data.heroCtaText,
+    heroImage: resolveImage(data.data.heroImage),
+    email: data.data.email,
+    phone: data.data.phone,
+    location: data.data.location,
+    footerDescription: data.data.footerDescription,
+    socialLinks: (data.data.socialLinks || []).map(s => ({ platform: s.platform, url: s.url })),
+  };
+};
+
 export const submitContactForm = async (formData) => {
   return postToStrapi('contact-submissions', formData);
 };

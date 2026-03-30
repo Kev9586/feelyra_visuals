@@ -3,12 +3,14 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
 import { toast } from '../hooks/use-toast';
-import { submitContactForm } from '../services/strapiService';
+import { submitContactForm, getSiteSettings } from '../services/strapiService';
+import { useStrapiData } from '../hooks/useStrapiData';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { data: settings } = useStrapiData(getSiteSettings, null);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -22,9 +24,9 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'hello@horizonphoto.com' },
-    { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
-    { icon: MapPin, label: 'Location', value: 'Based in Colorado, USA' },
+    { icon: Mail, label: 'Email', value: settings?.email || 'hello@horizonphoto.com' },
+    { icon: Phone, label: 'Phone', value: settings?.phone || '+1 (555) 123-4567' },
+    { icon: MapPin, label: 'Location', value: settings?.location || 'Based in Colorado, USA' },
   ];
 
   return (
