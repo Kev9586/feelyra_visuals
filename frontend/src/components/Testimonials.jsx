@@ -13,7 +13,7 @@ const Testimonials = () => {
         {/* Section Header */}
         <div className="mb-16 text-center">
           <span className="label-accent block mb-4">Client Stories</span>
-          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
             TESTIMONIALS
           </h2>
         </div>
@@ -24,10 +24,10 @@ const Testimonials = () => {
             <div
               key={t.id}
               data-testid={`testimonial-card-${index}`}
-              className="glass p-8 space-y-6 hover:border-amber-500/20 transition-all duration-500"
+              className="glass p-8 space-y-6 hover:border-white/20 transition-all duration-500"
               
             >
-              <Quote className="w-8 h-8 text-amber-500/60" />
+              <Quote className="w-8 h-8 text-white/50/60" />
               <p className="text-neutral-300 leading-relaxed font-light italic">
                 "{t.quote}"
               </p>

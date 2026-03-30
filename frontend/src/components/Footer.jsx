@@ -37,7 +37,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="text-4xl font-bold text-white tracking-tight" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+            <h3 className="text-4xl font-bold text-white tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
               HORIZON
             </h3>
             <p className="text-neutral-500 text-sm leading-relaxed font-light">
@@ -48,7 +48,7 @@ const Footer = () => {
                 const Icon = s.icon;
                 return (
                   <a key={s.label} href={s.href} aria-label={s.label} data-testid={`social-${s.label.toLowerCase()}`}
-                    className="w-9 h-9 border border-white/10 flex items-center justify-center text-neutral-500 hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all duration-300">
+                    className="w-9 h-9 border border-white/10 flex items-center justify-center text-neutral-500 hover:bg-white hover:text-black hover:border-white transition-all duration-300">
                     <Icon className="w-4 h-4" />
                   </a>
                 );
@@ -89,11 +89,11 @@ const Footer = () => {
             <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-neutral-500 text-sm">
-                <Mail className="w-3 h-3 text-amber-500" />
+                <Mail className="w-3 h-3 text-white/50" />
                 <span className="font-light">hello@horizonphoto.com</span>
               </li>
               <li className="flex items-center gap-3 text-neutral-500 text-sm">
-                <Phone className="w-3 h-3 text-amber-500" />
+                <Phone className="w-3 h-3 text-white/50" />
                 <span className="font-light">+1 (555) 123-4567</span>
               </li>
             </ul>

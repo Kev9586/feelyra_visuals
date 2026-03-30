@@ -35,7 +35,7 @@ const Contact = () => {
           <div className="space-y-8">
             <div>
               <span className="label-accent block mb-4">Get In Touch</span>
-              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
                 LET'S CREATE
               </h2>
               <p className="text-neutral-400 text-base leading-relaxed font-light max-w-md">
@@ -49,7 +49,7 @@ const Contact = () => {
                 return (
                   <div key={i} data-testid={`contact-info-${i}`} className="flex items-center gap-4">
                     <div className="w-10 h-10 glass flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-4 h-4 text-amber-500" />
+                      <Icon className="w-4 h-4 text-white/60" />
                     </div>
                     <div>
                       <span className="text-xs text-neutral-500 uppercase tracking-wider">{item.label}</span>
@@ -81,7 +81,7 @@ const Contact = () => {
                     required={field.required}
                     placeholder={field.placeholder}
                     data-testid={`contact-${field.id}`}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-amber-500 rounded-none"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-white/40 rounded-none"
                   />
                 </div>
               ))}
@@ -96,14 +96,14 @@ const Contact = () => {
                   rows={4}
                   placeholder="Tell me about your project..."
                   data-testid="contact-message"
-                  className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-amber-500 rounded-none resize-none"
+                  className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-white/40 rounded-none resize-none"
                 />
               </div>
               <button
                 type="submit"
                 disabled={isSubmitting}
                 data-testid="contact-submit-btn"
-                className="w-full bg-amber-500 text-black font-bold uppercase tracking-wider py-4 text-sm hover:bg-amber-400 transition-colors disabled:opacity-50"
+                className="w-full bg-white text-black font-bold uppercase tracking-wider py-4 text-sm hover:bg-white/80 transition-colors disabled:opacity-50 rounded-full"
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
                 <Send className="inline-block ml-2 w-4 h-4" />

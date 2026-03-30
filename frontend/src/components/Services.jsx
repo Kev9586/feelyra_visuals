@@ -14,7 +14,7 @@ const Services = () => {
         <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <span className="label-accent block mb-4">What We Offer</span>
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
               SERVICES
             </h2>
           </div>
@@ -29,7 +29,7 @@ const Services = () => {
             <div
               key={service.id}
               data-testid={`service-card-${index}`}
-              className="group bg-neutral-900/50 border border-white/5 hover:border-amber-500/30 transition-all duration-500 overflow-hidden cursor-pointer"
+              className="group bg-neutral-900/50 border border-white/5 hover:border-white/30 transition-all duration-500 overflow-hidden cursor-pointer"
               
             >
               {/* Image */}
@@ -47,7 +47,7 @@ const Services = () => {
 
               {/* Content */}
               <div className="p-6 space-y-4">
-                <h3 className="text-2xl font-bold text-white group-hover:text-amber-500 transition-colors duration-300" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+                <h3 className="text-2xl font-bold text-white group-hover:text-white transition-colors duration-300" style={{ fontFamily: 'Playfair Display, serif' }}>
                   {service.title}
                 </h3>
                 <p className="text-neutral-400 text-sm leading-relaxed font-light">
@@ -56,7 +56,7 @@ const Services = () => {
                 <ul className="space-y-2 pt-4 border-t border-white/5">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center gap-2 text-neutral-300 text-sm font-light">
-                      <Check className="w-3 h-3 text-amber-500 flex-shrink-0" />
+                      <Check className="w-3 h-3 text-white flex-shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}

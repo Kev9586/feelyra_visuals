@@ -42,14 +42,14 @@ const BookingModal = ({ isOpen, onClose }) => {
                 <User className="w-3 h-3" /> Name *
               </Label>
               <Input name="name" value={formData.name} onChange={handleChange} required placeholder="Your full name"
-                data-testid="booking-name" className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-amber-500 rounded-none" />
+                data-testid="booking-name" className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-white/40 rounded-none" />
             </div>
             <div className="space-y-1">
               <Label className="text-neutral-400 text-xs uppercase tracking-wider flex items-center gap-2">
                 <Mail className="w-3 h-3" /> Email *
               </Label>
               <Input name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="your.email@example.com"
-                data-testid="booking-email" className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-amber-500 rounded-none" />
+                data-testid="booking-email" className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-white/40 rounded-none" />
             </div>
           </div>
 
@@ -59,13 +59,13 @@ const BookingModal = ({ isOpen, onClose }) => {
                 <Phone className="w-3 h-3" /> Phone *
               </Label>
               <Input name="phone" type="tel" value={formData.phone} onChange={handleChange} required placeholder="+1 (555) 123-4567"
-                data-testid="booking-phone" className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-amber-500 rounded-none" />
+                data-testid="booking-phone" className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-white/40 rounded-none" />
             </div>
             <div className="space-y-1">
               <Label className="text-neutral-400 text-xs uppercase tracking-wider">Service Type *</Label>
               <select name="service" value={formData.service} onChange={handleChange} required
                 data-testid="booking-service"
-                className="w-full bg-white/5 border border-white/10 text-white px-3 py-2 focus:border-amber-500 focus:outline-none text-sm">
+                className="w-full bg-white/5 border border-white/10 text-white px-3 py-2 focus:border-white/40 focus:outline-none text-sm">
                 <option value="">Select a service</option>
                 <option value="travel">Travel Photography</option>
                 <option value="nature">Nature Photography</option>
@@ -81,14 +81,14 @@ const BookingModal = ({ isOpen, onClose }) => {
                 <Calendar className="w-3 h-3" /> Preferred Date *
               </Label>
               <Input name="date" type="date" value={formData.date} onChange={handleChange} required
-                data-testid="booking-date" className="bg-white/5 border-white/10 text-white focus:border-amber-500 rounded-none" />
+                data-testid="booking-date" className="bg-white/5 border-white/10 text-white focus:border-white/40 rounded-none" />
             </div>
             <div className="space-y-1">
               <Label className="text-neutral-400 text-xs uppercase tracking-wider flex items-center gap-2">
                 <Clock className="w-3 h-3" /> Preferred Time
               </Label>
               <Input name="time" type="time" value={formData.time} onChange={handleChange}
-                data-testid="booking-time" className="bg-white/5 border-white/10 text-white focus:border-amber-500 rounded-none" />
+                data-testid="booking-time" className="bg-white/5 border-white/10 text-white focus:border-white/40 rounded-none" />
             </div>
           </div>
 
@@ -96,7 +96,7 @@ const BookingModal = ({ isOpen, onClose }) => {
             <Label className="text-neutral-400 text-xs uppercase tracking-wider">Project Details *</Label>
             <Textarea name="details" value={formData.details} onChange={handleChange} required rows={3}
               placeholder="Tell me about your project..."
-              data-testid="booking-details" className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-amber-500 rounded-none resize-none" />
+              data-testid="booking-details" className="bg-white/5 border-white/10 text-white placeholder:text-neutral-600 focus:border-white/40 rounded-none resize-none" />
           </div>
 
           <div className="flex gap-3 pt-2">
@@ -105,7 +105,7 @@ const BookingModal = ({ isOpen, onClose }) => {
               Cancel
             </button>
             <button type="submit" disabled={isSubmitting} data-testid="booking-submit-btn"
-              className="flex-1 bg-amber-500 text-black font-bold uppercase tracking-wider py-3 text-sm hover:bg-amber-400 transition-colors disabled:opacity-50">
+              className="flex-1 bg-white text-black font-bold uppercase tracking-wider py-3 text-sm hover:bg-white/80 transition-colors disabled:opacity-50 rounded-full">
               {isSubmitting ? 'Submitting...' : 'Submit Request'}
             </button>
           </div>

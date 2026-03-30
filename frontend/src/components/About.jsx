@@ -21,7 +21,7 @@ const About = () => {
               />
             </div>
             {/* Decorative accent */}
-            <div className="absolute -bottom-4 -right-4 w-48 h-48 border border-amber-500/20 -z-10" />
+            <div className="absolute -bottom-4 -right-4 w-48 h-48 border border-white/10 -z-10" />
             <div className="absolute -top-4 -left-4 w-24 h-24 border border-white/5 -z-10" />
           </div>
 
@@ -29,10 +29,10 @@ const About = () => {
           <div className="space-y-8">
             <div>
               <span className="label-accent block mb-4">Who We Are</span>
-              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
                 ABOUT
               </h2>
-              <h3 className="text-xl text-amber-500 font-semibold mb-4">
+              <h3 className="text-xl text-white/70 font-semibold mb-4">
                 {aboutData.title}
               </h3>
               <p className="text-neutral-400 text-base leading-relaxed font-light">
@@ -46,8 +46,8 @@ const About = () => {
                 const Icon = iconMap[index];
                 return (
                   <div key={index} data-testid={`about-stat-${index}`} className="space-y-2">
-                    <Icon className="w-5 h-5 text-amber-500 mb-2" />
-                    <div className="text-4xl font-bold text-white" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+                    <Icon className="w-5 h-5 text-white/70 mb-2" />
+                    <div className="text-4xl font-bold text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
                       {stat.value}
                     </div>
                     <div className="text-neutral-500 text-xs uppercase tracking-wider">

@@ -19,7 +19,7 @@ const Gallery = () => {
         {/* Section Header */}
         <div className="mb-12">
           <span className="label-accent block mb-4">Our Work</span>
-          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
             PORTFOLIO
           </h2>
         </div>
@@ -33,7 +33,7 @@ const Gallery = () => {
               onClick={() => setActiveFilter(cat)}
               className={`capitalize px-6 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
                 activeFilter === cat
-                  ? 'bg-amber-500 text-black'
+                  ? 'bg-white text-black'
                   : 'bg-transparent text-neutral-400 border border-white/10 hover:border-white/30 hover:text-white'
               }`}
             >
@@ -63,7 +63,7 @@ const Gallery = () => {
               }`}>
                 <div className="absolute bottom-0 left-0 right-0 p-5 transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
                   <span className="label-accent block mb-1">{image.category}</span>
-                  <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+                  <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
                     {image.title}
                   </h3>
                 </div>

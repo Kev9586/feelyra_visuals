@@ -19,10 +19,10 @@ const FAQ = () => {
               key={faq.id}
               value={`item-${faq.id}`}
               data-testid={`faq-item-${index}`}
-              className="glass px-6 hover:border-amber-500/20 transition-all duration-300"
+              className="glass px-6 hover:border-white/20 transition-all duration-300"
               
             >
-              <AccordionTrigger className="text-white hover:text-amber-500 text-left py-5">
+              <AccordionTrigger className="text-white hover:text-white/60 text-left py-5">
                 <span className="font-semibold text-base">{faq.question}</span>
               </AccordionTrigger>
               <AccordionContent className="text-neutral-400 pb-5 leading-relaxed font-light text-sm">
