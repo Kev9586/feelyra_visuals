@@ -340,7 +340,7 @@ async function migrateData() {
   try {
     // Test connection
     console.log('🔌 Testing connection to Strapi...');
-    await api.get('/');
+    await api.get('/portfolio-items');
     console.log('✅ Connected to Strapi!\n');
     
     // Migrate data
