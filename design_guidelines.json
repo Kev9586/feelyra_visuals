@@ -1,0 +1,98 @@
+{
+  "theme": "Dark",
+  "archetype": "5 (Jewel & Luxury)",
+  "vibe": "Cinematic, moody, expensive, artistic. An award-winning creative agency aesthetic.",
+  "typography": {
+    "headings": {
+      "family": "Clash Display or Bebas Neue",
+      "classes": "font-bold tracking-tight uppercase",
+      "h1": "text-5xl sm:text-6xl lg:text-7xl",
+      "h2": "text-4xl sm:text-5xl lg:text-6xl",
+      "h3": "text-2xl sm:text-3xl lg:text-4xl"
+    },
+    "body": {
+      "family": "Manrope",
+      "classes": "font-light leading-relaxed text-neutral-300",
+      "base": "text-base sm:text-lg"
+    },
+    "labels": {
+      "classes": "uppercase tracking-[0.2em] text-xs font-semibold text-amber-500"
+    }
+  },
+  "colors": {
+    "background": {
+      "primary": "bg-neutral-950",
+      "secondary": "bg-neutral-900",
+      "glass": "bg-black/40 backdrop-blur-xl border border-white/10"
+    },
+    "text": {
+      "primary": "text-white",
+      "secondary": "text-neutral-400",
+      "accent": "text-amber-500"
+    },
+    "accent": {
+      "primary": "amber-500",
+      "hover": "amber-400"
+    }
+  },
+  "layout_and_spacing": {
+    "global_padding": "px-6 md:px-12 lg:px-24",
+    "section_spacing": "py-24 md:py-32",
+    "hero_split": {
+      "description": "Asymmetrical 60/40 or 50/50 split. Left side typography and CTA. Right side is the main photographer generated image, overlaid with smaller floating gallery images that have parallax or subtle float animations."
+    },
+    "bento_grid": {
+      "description": "Use a Tetris-style asymmetrical bento grid for the Featured Work and Gallery. Mix tall (col-span-1 row-span-2), wide (col-span-2 row-span-1), and large (col-span-2 row-span-2) items."
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-amber-500 text-black font-bold uppercase tracking-wider px-8 py-4 rounded-none hover:bg-amber-400 transition-colors",
+      "secondary": "border border-white/20 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-none hover:bg-white/5 transition-colors"
+    },
+    "cards": {
+      "style": "bg-neutral-900/50 border border-white/5 rounded-none p-8 hover:border-white/20 transition-all",
+      "images": "grayscale hover:grayscale-0 transition-all duration-700"
+    },
+    "navigation": {
+      "style": "fixed top-0 w-full z-50 bg-neutral-950/80 backdrop-blur-xl border-b border-white/5 py-4"
+    }
+  },
+  "media_urls": {
+    "hero": {
+      "photographer": "https://static.prod-images.emergentagent.com/jobs/00252e81-49fc-4819-a1c1-88ff0ad1284e/images/ba24d44ec14aeb4783b6bd294d135b081dd81a1ff5f5ccdbe8676beda4d6fb71.png"
+    },
+    "about": {
+      "photographer": "https://static.prod-images.emergentagent.com/jobs/00252e81-49fc-4819-a1c1-88ff0ad1284e/images/1ca15554e1640971c57ec162139b55be179fa115cf9c32744ce76a0e4b4af887.png"
+    },
+    "gallery_nature": [
+      "https://images.pexels.com/photos/36055561/pexels-photo-36055561.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "https://images.pexels.com/photos/4249282/pexels-photo-4249282.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    ],
+    "gallery_commercial": [
+      "https://images.unsplash.com/photo-1595550510467-930da051f939?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzZ8MHwxfHNlYXJjaHwxfHxlZGl0b3JpYWwlMjBmYXNoaW9uJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzc0ODc4OTEzfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1631692358279-dae64a50e28c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzZ8MHwxfHNlYXJjaHwzfHxlZGl0b3JpYWwlMjBmYXNoaW9uJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzc0ODc4OTEzfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1614188443400-0050360d6c23?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzZ8MHwxfHNlYXJjaHwyfHxlZGl0b3JpYWwlMjBmYXNoaW9uJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzc0ODc4OTEzfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1614188443402-8b9bf8dc7f97?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzZ8MHwxfHNlYXJjaHw0fHxlZGl0b3JpYWwlMjBmYXNoaW9uJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzc0ODc4OTEzfDA&ixlib=rb-4.1.0&q=85"
+    ],
+    "gallery_travel": [
+      "https://images.unsplash.com/photo-1745148373819-7e7e6b2efb17?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwyfHxtb29keSUyMHRyYXZlbCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3NzQ4Nzg5MTR8MA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1580416578667-035cacf11813?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHw0fHxtb29keSUyMHRyYXZlbCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3NzQ4Nzg5MTR8MA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1713257109019-86be5de4c8f7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwzfHxtb29keSUyMHRyYXZlbCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3NzQ4Nzg5MTR8MA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1626904158985-de5a24c00d84?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwxfHxtb29keSUyMHRyYXZlbCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3NzQ4Nzg5MTR8MA&ixlib=rb-4.1.0&q=85"
+    ]
+  },
+  "interactions_and_motion": {
+    "hover_effects": "Images should have a subtle scale up (scale-105) on hover. High-end sites use slow transitions (duration-700 ease-out).",
+    "scroll_animations": "Elements should fade in and slide up slightly on scroll. Use Framer Motion if possible."
+  },
+  "instructions_to_main_agent": [
+    "Read this JSON and implement the design system strictly.",
+    "Do NOT use 'Inter' for headings. Use Clash Display or Bebas Neue.",
+    "Ensure all interactive elements have a `data-testid` attribute.",
+    "For the hero section, place the main photographer image prominently, and overlay 2-3 smaller images from the gallery arrays to create a 'floating gallery' effect as requested.",
+    "Use raw Tailwind and HTML for the creative bento grids (Featured Work, Gallery), and Shadcn UI for structured components like the Booking Modal, FAQ Accordion, and Contact Form.",
+    "Apply a subtle noise/grain texture over the background to achieve the 'cinematic' feel.",
+    "Ensure the hero section does NOT look like a standard SaaS template. It needs to be bold, asymmetric, and heavily emphasize the visuals."
+  ]
+}
