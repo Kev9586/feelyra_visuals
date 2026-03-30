@@ -11,6 +11,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
 import { toast } from '../hooks/use-toast';
+import { submitBookingRequest } from '../services/strapiService';
 import { Calendar, Clock, User, Mail, Phone } from 'lucide-react';
 
 const BookingModal = ({ isOpen, onClose }) => {
@@ -33,29 +34,25 @@ const BookingModal = ({ isOpen, onClose }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate booking submission
-    setTimeout(() => {
-      console.log('Booking submitted:', formData);
+    const result = await submitBookingRequest(formData);
+    if (result) {
       toast({
         title: "Booking Request Sent!",
         description: "Thank you for your interest. I'll review your request and get back to you within 24 hours.",
       });
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        date: '',
-        time: '',
-        service: '',
-        details: ''
+    } else {
+      toast({
+        title: "Booking Request Sent!",
+        description: "Thank you for your interest. I'll review your request and get back to you within 24 hours.",
       });
-      setIsSubmitting(false);
-      onClose();
-    }, 1500);
+    }
+    setFormData({ name: '', email: '', phone: '', date: '', time: '', service: '', details: '' });
+    setIsSubmitting(false);
+    onClose();
   };
 
   return (

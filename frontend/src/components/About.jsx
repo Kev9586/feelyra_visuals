@@ -1,5 +1,6 @@
 import React from 'react';
 import { aboutData } from '../mock/photographyData';
+// About section uses static mock data (not CMS-managed)
 import { Camera, Award, MapPin, Calendar } from 'lucide-react';
 
 const About = () => {

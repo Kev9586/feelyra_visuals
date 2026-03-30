@@ -1,0 +1,96 @@
+const STRAPI_URL = process.env.REACT_APP_STRAPI_URL;
+
+const fetchFromStrapi = async (endpoint, params = '') => {
+  if (!STRAPI_URL) return null;
+  try {
+    const url = `${STRAPI_URL}/api/${endpoint}?populate=*${params ? '&' + params : ''}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn(`Strapi fetch failed for ${endpoint}:`, err.message);
+    return null;
+  }
+};
+
+const postToStrapi = async (endpoint, payload) => {
+  if (!STRAPI_URL) return null;
+  try {
+    const res = await fetch(`${STRAPI_URL}/api/${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: payload }),
+    });
+    if (!res.ok) throw new Error(`${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn(`Strapi post failed for ${endpoint}:`, err.message);
+    return null;
+  }
+};
+
+export const getPortfolioItems = async () => {
+  const data = await fetchFromStrapi('portfolio-items', 'sort=order:asc');
+  if (!data?.data) return null;
+  return data.data.map(item => ({
+    id: item.id,
+    url: item.image?.url ? `${STRAPI_URL}${item.image.url}` : item.image,
+    category: item.category,
+    title: item.title,
+    description: item.description,
+    featured: item.featured,
+  }));
+};
+
+export const getFeaturedWork = async () => {
+  const data = await fetchFromStrapi('portfolio-items', 'filters[featured][$eq]=true&sort=order:asc');
+  if (!data?.data) return null;
+  return data.data.map(item => ({
+    id: item.id,
+    image: item.image?.url ? `${STRAPI_URL}${item.image.url}` : item.image,
+    title: item.title,
+    category: item.category,
+    description: item.description,
+  }));
+};
+
+export const getServices = async () => {
+  const data = await fetchFromStrapi('services');
+  if (!data?.data) return null;
+  return data.data.map(item => ({
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    image: item.image?.url ? `${STRAPI_URL}${item.image.url}` : item.image,
+    features: item.features?.map(f => f.text) || [],
+  }));
+};
+
+export const getTestimonials = async () => {
+  const data = await fetchFromStrapi('testimonials', 'sort=order:asc');
+  if (!data?.data) return null;
+  return data.data.map(item => ({
+    id: item.id,
+    name: item.name,
+    role: item.role,
+    image: item.image?.url ? `${STRAPI_URL}${item.image.url}` : item.image,
+    quote: item.quote,
+  }));
+};
+
+export const submitContactForm = async (formData) => {
+  return postToStrapi('contact-submissions', formData);
+};
+
+export const submitBookingRequest = async (formData) => {
+  return postToStrapi('booking-requests', {
+    name: formData.name,
+    email: formData.email,
+    phone: formData.phone,
+    service: formData.service,
+    preferredDate: formData.date,
+    preferredTime: formData.time,
+    details: formData.details,
+    status: 'pending',
+  });
+};

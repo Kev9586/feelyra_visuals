@@ -1,9 +1,12 @@
 import React from 'react';
-import { testimonials } from '../mock/photographyData';
+import { testimonials as mockTestimonials } from '../mock/photographyData';
+import { useStrapiData } from '../hooks/useStrapiData';
+import { getTestimonials } from '../services/strapiService';
 import { Card, CardContent } from './ui/card';
 import { Quote } from 'lucide-react';
 
 const Testimonials = () => {
+  const { data: testimonials } = useStrapiData(getTestimonials, mockTestimonials);
   return (
     <section className="py-24 bg-neutral-950">
       <div className="container mx-auto px-6 lg:px-12">

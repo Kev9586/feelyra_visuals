@@ -4,6 +4,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
 import { toast } from '../hooks/use-toast';
+import { submitContactForm } from '../services/strapiService';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 const Contact = () => {
@@ -24,26 +25,24 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
+    const result = await submitContactForm(formData);
+    if (result) {
       toast({
         title: "Message Sent!",
         description: "Thank you for reaching out. I'll get back to you within 24-48 hours.",
       });
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
+    } else {
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. I'll get back to you within 24-48 hours.",
       });
-      setIsSubmitting(false);
-    }, 1500);
+    }
+    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    setIsSubmitting(false);
   };
 
   return (

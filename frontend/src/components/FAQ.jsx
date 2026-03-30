@@ -1,6 +1,7 @@
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
 import { faqData } from '../mock/photographyData';
+// FAQ section uses static mock data (not CMS-managed)
 
 const FAQ = () => {
   return (

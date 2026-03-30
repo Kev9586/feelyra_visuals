@@ -1,8 +1,11 @@
 import React from 'react';
-import { featuredWork } from '../mock/photographyData';
+import { featuredWork as mockFeaturedWork } from '../mock/photographyData';
+import { useStrapiData } from '../hooks/useStrapiData';
+import { getFeaturedWork } from '../services/strapiService';
 import { ArrowUpRight } from 'lucide-react';
 
 const FeaturedWork = () => {
+  const { data: featuredWork } = useStrapiData(getFeaturedWork, mockFeaturedWork);
   return (
     <section className="py-24 bg-neutral-950">
       <div className="container mx-auto px-6 lg:px-12">
