@@ -44,7 +44,7 @@ const Header = ({ onBookingClick }) => {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="text-white hover:opacity-70 transition-opacity"
           >
-            <span className="text-2xl italic" style={{ fontFamily: 'Playfair Display, serif' }}>Hz</span>
+            <span className="text-2xl italic" style={{ fontFamily: 'Playfair Display, serif' }}>FS</span>
           </button>
 
           {/* Desktop Nav */}

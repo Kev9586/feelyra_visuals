@@ -15,10 +15,12 @@ const Hero = ({ onBookingClick }) => {
     setLoaded(true);
   }, []);
 
-  const brandName = settings?.brandName || 'HORIZON';
-  const tagline = settings?.heroTagline || "Welcome to HORIZON where nature meets art. Our passion for the outdoors and capturing its beauty has led us on countless adventures and allowed us to develop a unique style of photography that showcases the natural world in all its splendor.";
+  const brandName = settings?.brandName || 'FEELYRA VISUALS';
+  const tagline = settings?.heroTagline || "Welcome to FEELYRA VISUALS where nature meets art. Our passion for the outdoors and capturing its beauty has led us on countless adventures and allowed us to develop a unique style of photography that showcases the natural world in all its splendor.";
   const ctaText = settings?.heroCtaText || 'Book your adventure today';
   const photographerImage = settings?.heroImage || FALLBACK_PHOTOGRAPHER;
+  // Split brand into words so each word gets the italic-first-letter treatment
+  const brandWords = brandName.split(' ');
 
   return (
     <section data-testid="hero-section" className="relative min-h-screen bg-[#0a0a0a] overflow-hidden">
@@ -29,10 +31,14 @@ const Hero = ({ onBookingClick }) => {
           <div className={`space-y-6 pt-8 lg:pt-16 transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h1
               data-testid="hero-heading"
-              className="text-6xl sm:text-7xl lg:text-8xl text-white leading-[0.95]"
+              className="text-5xl sm:text-6xl lg:text-7xl text-white leading-[0.95]"
               style={{ fontFamily: 'Playfair Display, serif', fontWeight: 400 }}
             >
-              <span className="italic">{brandName[0]}</span>{brandName.slice(1)}
+              {brandWords.map((word, i) => (
+                <span key={i} className="block">
+                  <span className="italic">{word[0]}</span>{word.slice(1)}
+                </span>
+              ))}
             </h1>
 
             <p className="text-white/50 text-sm leading-relaxed max-w-sm font-light">
@@ -54,7 +60,7 @@ const Hero = ({ onBookingClick }) => {
               src={photographerImage}
               alt="Photographer with camera"
               data-testid="hero-photographer-img"
-              className="w-full h-[500px] lg:h-[600px] object-cover object-top"
+              className="w-full h-[500px] lg:h-[600px] object-cover object-center"
             />
           </div>
         </div>

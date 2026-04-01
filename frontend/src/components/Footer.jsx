@@ -9,7 +9,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
   const { data: settings } = useStrapiData(getSiteSettings, null);
 
-  const brandName = settings?.brandName || 'HORIZON';
+  const brandName = settings?.brandName || 'FEELYRA VISUALS';
   const footerDesc = settings?.footerDescription || "Capturing the natural world's beauty through the lens of adventure and artistry.";
   const email = settings?.email || 'hello@horizonphoto.com';
   const phone = settings?.phone || '+1 (555) 123-4567';
