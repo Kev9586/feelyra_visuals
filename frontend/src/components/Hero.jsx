@@ -11,80 +11,76 @@ const Hero = ({ onBookingClick }) => {
   const { data: heroImages } = useStrapiData(getHeroImages, []);
   const { data: settings } = useStrapiData(getSiteSettings, null);
 
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
+  useEffect(() => { setLoaded(true); }, []);
 
-  const brandName = settings?.brandName || 'FEELYRA VISUALS';
-  const tagline = settings?.heroTagline || "Welcome to FEELYRA VISUALS where nature meets art. Our passion for the outdoors and capturing its beauty has led us on countless adventures and allowed us to develop a unique style of photography that showcases the natural world in all its splendor.";
-  const ctaText = settings?.heroCtaText || 'Book your adventure today';
+  const brandName   = settings?.brandName   || 'FEELYRA VISUALS';
+  const tagline     = settings?.heroTagline  || 'Welcome to FEELYRA VISUALS where nature meets art. Our passion for the outdoors and capturing its beauty has led us on countless adventures.';
+  const ctaText     = settings?.heroCtaText  || 'Book your adventure today';
   const photographerImage = settings?.heroImage || FALLBACK_PHOTOGRAPHER;
-  // Split brand into words so each word gets the italic-first-letter treatment
-  const brandWords = brandName.split(' ');
+  const brandWords  = brandName.split(' ');
 
   return (
-    <section data-testid="hero-section" className="relative min-h-screen bg-[#0a0a0a] overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12 lg:px-16 pt-28 pb-0">
-        {/* Top split: Text + Photographer */}
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          {/* Left — Text */}
-          <div className={`space-y-6 pt-8 lg:pt-16 transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1
-              data-testid="hero-heading"
-              className="text-5xl sm:text-6xl lg:text-7xl text-white leading-[0.95]"
-              style={{ fontFamily: 'Playfair Display, serif', fontWeight: 400 }}
-            >
-              {brandWords.map((word, i) => (
-                <span key={i} className="block">
-                  <span className="italic">{word[0]}</span>{word.slice(1)}
-                </span>
-              ))}
-            </h1>
+    <section data-testid="hero-section" className="relative bg-[#0a0a0a] overflow-hidden" style={{ minHeight: '100vh' }}>
 
-            <p className="text-white/50 text-sm leading-relaxed max-w-sm font-light">
-              {tagline}
-            </p>
+      {/* ── Photographer image — right side, full height ── */}
+      <div className={`absolute top-0 right-0 h-full w-[58%] transition-opacity duration-1000 delay-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
+        <img
+          src={photographerImage}
+          alt="Photographer with camera"
+          data-testid="hero-photographer-img"
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Left-edge gradient so text stays readable over image */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent pointer-events-none" />
+      </div>
 
-            <button
-              data-testid="hero-book-btn"
-              onClick={onBookingClick}
-              className="border border-white/30 text-white text-sm px-6 py-2.5 rounded-full hover:bg-white/10 transition-all mt-2"
-            >
-              {ctaText}
-            </button>
-          </div>
+      {/* ── Text block — lower-left, in front of image ── */}
+      <div className="relative z-10 flex flex-col" style={{ minHeight: '100vh' }}>
+        <div className="flex-1" />
 
-          {/* Right — Photographer */}
-          <div className={`relative transition-all duration-1000 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <img
-              src={photographerImage}
-              alt="Photographer with camera"
-              data-testid="hero-photographer-img"
-              className="w-full h-[500px] lg:h-[600px] object-cover object-center"
-            />
+        <div className={`px-6 md:px-12 lg:px-16 pb-12 lg:pb-20 max-w-2xl transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h1
+            data-testid="hero-heading"
+            className="text-white leading-[0.88] mb-7"
+            style={{ fontFamily: 'Playfair Display, Cormorant Garamond, serif', fontWeight: 400, fontSize: 'clamp(4rem, 10vw, 8rem)' }}
+          >
+            {brandWords.map((word, i) => (
+              <span key={i} className="block">
+                <em style={{ fontStyle: 'italic' }}>{word[0]}</em>{word.slice(1)}
+              </span>
+            ))}
+          </h1>
+
+          <p className="text-white/50 text-sm leading-relaxed max-w-xs font-light mb-8">
+            {tagline}
+          </p>
+
+          <button
+            data-testid="hero-book-btn"
+            onClick={onBookingClick}
+            className="border border-white/30 text-white text-sm px-6 py-2.5 rounded-full hover:bg-white/10 transition-all"
+          >
+            {ctaText}
+          </button>
+        </div>
+      </div>
+
+      {/* ── Bottom gallery grid ── */}
+      {heroImages.length > 0 && (
+        <div className={`relative z-10 transition-all duration-1000 delay-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 auto-rows-[120px] md:auto-rows-[140px]">
+            {heroImages.map((url, i) => (
+              <div key={i} className={`overflow-hidden group cursor-pointer ${rowSpans[i] || 'row-span-1'}`}>
+                <img
+                  src={url}
+                  alt={`Gallery ${i + 1}`}
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                />
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Bottom — Floating Gallery Grid */}
-        {heroImages.length > 0 && (
-          <div className={`-mt-16 lg:-mt-32 relative z-10 transition-all duration-1000 delay-600 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 auto-rows-[120px] md:auto-rows-[140px]">
-              {heroImages.map((url, i) => (
-                <div
-                  key={i}
-                  className={`overflow-hidden group cursor-pointer ${rowSpans[i] || 'row-span-1'}`}
-                >
-                  <img
-                    src={url}
-                    alt={`Gallery ${i + 1}`}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </section>
   );
 };
